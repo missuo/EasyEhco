@@ -14,7 +14,7 @@ Restart=always
 # 工作目录
 WoringDirectory=/usr/bin/ehco
 # 启动命令
-ExecStart=/usr/bin/ehco -c /root/ehco.conf
+ExecStart=/usr/bin/ehco -c /root/ehco.json
 
 [Install]
 # 当系统以多用户方式启动时，这个服务需要被自动运行
