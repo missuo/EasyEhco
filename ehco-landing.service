@@ -1,0 +1,21 @@
+[Unit]
+# 服务描述
+Description=crontab master
+# 在网络初始化之后启动
+After=network.target
+
+[Service]
+# 服务类型
+Type=simple
+# 进程退出立即重启
+Restart=always
+
+
+# 工作目录
+WoringDirectory=/usr/bin/ehco
+# 启动命令
+ExecStart=/usr/bin/ehco -l 0.0.0.0:443 -lt mwss -r 127.0.0.1:1111
+
+[Install]
+# 当系统以多用户方式启动时，这个服务需要被自动运行
+WantedBy=multi-user.target
