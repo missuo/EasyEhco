@@ -20,8 +20,8 @@
 wget -O ehco.sh https://raw.githubusercontent.com/missuo/Ehcoo/main/ehco.sh && bash ehco.sh
 ```
 ## 感谢
-感谢 [echo](https://github.com/Ehco1996/ehco) 所有开发者的贡献
-感谢 [Jack](https://github.com/Jackxun123) 提供的 `jq` 处理 `JSON` 的方案
+- 感谢 [echo](https://github.com/Ehco1996/ehco) 所有开发者的贡献
+- 感谢 [Jack](https://github.com/Jackxun123) 提供的 `jq` 处理 `JSON` 的方案
 
 ## 反馈
 你可以提出ISSUES。
