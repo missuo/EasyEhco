@@ -4,12 +4,6 @@
   "enable_ping": false,
 
   "relay_configs": [
-    {
-      "listen": "0.0.0.0:1111",
-      "listen_type": "raw",
-      "transport_type": "mwss",
-      "tcp_remotes": ["wss://0.0.0.0:443"],
-      "udp_remotes": ["0.0.0.0:443"]
-    },
+   
   ]
 }
