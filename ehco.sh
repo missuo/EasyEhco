@@ -134,7 +134,8 @@ forward_config(){
 	JSON=${JSON/landing_port/$landing_port};
 	JSON=${JSON/ip/$ip};
 	JSON=${JSON/ip/$ip};
-	jq --argjson groupInfo $JSON '.relay_configs += [$groupInfo]' ehco.json|sponge ehco.json
+	temp=`jq --argjson groupInfo $JSON '.relay_configs += [$groupInfo]' ehco.json`
+	echo $temp > ehco.json
 	wget raw.githubusercontent.com/missuo/Ehcoo/main/ehco-landing.service -O ehco.service
 	mv ehco.service /usr/lib/systemd/system
 	echo "正在本机启动Echo隧道"
