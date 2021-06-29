@@ -76,13 +76,13 @@ check_sys(){
 	
 	if [ $release = "Centos" ]
 	then
-		yum -y install wget jq moreutils
+		yum -y install wget jq
 	elif [ $release = "Debian" ]
 	then
-		apt-get install wget jq moreutils -y
+		apt-get install wget jq -y
 	elif [ $release = "Ubuntu" ]
 	then
-		apt-get install wget jq moreutils -y
+		apt-get install wget jq -y
 	else
 		echo -e "[${red}错误${plain}]不支持当前系统"
 		exit 1
@@ -100,7 +100,7 @@ landing_config(){
 	read -p "请输入落地鸡隧道的端口(用于和中转鸡通信，建议443/8443):" listen_port
 	[ -z "${listen_port}" ]
 	echo ""
-	wget raw.githubusercontent.com/missuo/Ehcoo/main/ehco-landing.service -O ehco.service
+	wget https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco-landing.service -O ehco.service
 	mv ehco.service /usr/lib/systemd/system
 	sed -i 's/'443'/'${listen_port}'/g' /usr/lib/systemd/system/ehco.service
 	sed -i 's/'1111'/'${server_port}'/g' /usr/lib/systemd/system/ehco.service
@@ -128,7 +128,7 @@ forward_config(){
 	read -p "请输入本机的中转/监听端口(任意未被占用的端口即可):" local_port
 	[ -z "${local_port}" ]
 	echo ""
-	wget https://raw.githubusercontent.com/missuo/Ehcoo/main/ehco.json -O ehco.json
+	wget https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco.json -O ehco.json
 	JSON='{"listen":"0.0.0.0:local_port","listen_type":"raw","transport_type":"mwss","tcp_remotes":["wss://ip:landing_port"],"udp_remotes":["ip:443"]}'
 	JSON=${JSON/local_port/$local_port};
 	JSON=${JSON/landing_port/$landing_port};
@@ -136,7 +136,7 @@ forward_config(){
 	JSON=${JSON/ip/$ip};
 	temp=`jq --argjson groupInfo $JSON '.relay_configs += [$groupInfo]' ehco.json`
 	echo $temp > ehco.json
-	wget raw.githubusercontent.com/missuo/Ehcoo/main/ehco-landing.service -O ehco.service
+	wget  https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco-landing.service -O ehco.service
 	mv ehco.service /usr/lib/systemd/system
 	echo "正在本机启动Echo隧道"
 	systemctl daemon-reload
