@@ -136,7 +136,7 @@ forward_config(){
 	JSON=${JSON/ip/$ip};
 	temp=`jq --argjson groupInfo $JSON '.relay_configs += [$groupInfo]' ehco.json`
 	echo $temp > ehco.json
-	wget  https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco-landing.service -O ehco.service
+	wget https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco-landing.service -O ehco.service
 	mv ehco.service /usr/lib/systemd/system
 	echo "正在本机启动Echo隧道"
 	systemctl daemon-reload
@@ -151,7 +151,7 @@ forward_config(){
 
 if [ ! -d "/usr/bin/ehco" ]; then
 	echo -e "现在开始安装Ehco隧道"
-	wget https://github.com/Ehco1996/ehco/releases/download/v1.0.7/ehco_1.0.7_linux_amd64 -O ehco
+	wget https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco_1.0.7_linux_amd64 -O ehco
 	chmod +x ehco
 	mv ehco /usr/bin
 fi
