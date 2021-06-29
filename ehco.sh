@@ -150,7 +150,7 @@ forward_config(){
 }
 
 ehco_file="/usr/bin/ehco"
-if [ ! -x "$myPath"]; then
+if [ ! -x "$ehco_file"]; then
 echo -e "现在开始安装Ehco隧道"
 wget https://github.com/Ehco1996/ehco/releases/download/v1.0.7/ehco_1.0.7_linux_amd64 -O ehco
 chmod +x ehco
