@@ -17,7 +17,7 @@
 
 ## 使用
 ```shell
-wget -O ehco.sh https://raw.githubusercontent.com/missuo/Ehcoo/main/ehco.sh && bash ehco.sh
+wget -O ehco.sh https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco.sh && bash ehco.sh
 ```
 ## 感谢
 - 感谢 [echo](https://github.com/Ehco1996/ehco) 所有开发者的贡献
