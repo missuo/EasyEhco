@@ -77,12 +77,18 @@ check_sys(){
 	if [ $release = "Centos" ]
 	then
 		yum -y install wget jq
+		sysctl_dir="/usr/lib/systemd/system/"
+		full_sysctl_dir=${sysctl_dir}"echo.service"
 	elif [ $release = "Debian" ]
 	then
 		apt-get install wget jq -y
+		sysctl_dir="/etc/systemd/system/"
+		full_sysctl_dir=${sysctl_dir}"echo.service"
 	elif [ $release = "Ubuntu" ]
 	then
 		apt-get install wget jq -y
+		sysctl_dir="/lib/systemd/system/"
+		full_sysctl_dir=${sysctl_dir}"echo.service"
 	else
 		echo -e "[${red}错误${plain}]不支持当前系统"
 		exit 1
@@ -100,12 +106,12 @@ landing_config(){
 	read -p "请输入落地鸡隧道的端口(用于和中转鸡通信，建议443/8443):" listen_port
 	[ -z "${listen_port}" ]
 	echo ""
-	if [ ! -f "/usr/lib/systemd/system/ehco.service" ]; then
+	if [ ! -f $full_sysctl_dir ]; then
 		wget https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco-landing.service -O ehco.service
-		mv ehco.service /usr/lib/systemd/system
+		mv ehco.service $sysctl_dir
 	fi
-	sed -i 's/'443'/'${listen_port}'/g' /usr/lib/systemd/system/ehco.service
-	sed -i 's/'1111'/'${server_port}'/g' /usr/lib/systemd/system/ehco.service
+	sed -i 's/'443'/'${listen_port}'/g' $full_sysctl_dir
+	sed -i 's/'1111'/'${server_port}'/g' $full_sysctl_dir
 	echo "正在本机启动Echo隧道"
 	systemctl daemon-reload
 	systemctl start ehco.service
@@ -141,9 +147,9 @@ forward_config(){
 	JSON=${JSON/ip/$ip};
 	temp=`jq --argjson groupInfo $JSON '.relay_configs += [$groupInfo]' ehco.json`
 	echo $temp > ehco.json
-	if [ ! -f "/usr/lib/systemd/system/ehco.service" ]; then
+	if [ ! -f $full_sysctl_dir ]; then
 		wget https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco-forward.service -O ehco.service
-		mv ehco.service /usr/lib/systemd/system
+		mv ehco.service $sysctl_dir
 	fi
 	echo "正在本机启动Echo隧道"
 	systemctl daemon-reload
