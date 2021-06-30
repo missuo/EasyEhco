@@ -100,7 +100,7 @@ landing_config(){
 	read -p "请输入落地鸡隧道的端口(用于和中转鸡通信，建议443/8443):" listen_port
 	[ -z "${listen_port}" ]
 	echo ""
-	if [ ! -d "/usr/lib/systemd/system/ehco.service" ]; then
+	if [ ! -f "/usr/lib/systemd/system/ehco.service" ]; then
 		wget https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco-landing.service -O ehco.service
 		mv ehco.service /usr/lib/systemd/system
 	fi
@@ -130,18 +130,19 @@ forward_config(){
 	read -p "请输入本机的中转/监听端口(任意未被占用的端口即可):" local_port
 	[ -z "${local_port}" ]
 	echo ""
-	if [ ! -d "/root/ehco.json" ]; then
+	if [ ! -f "/root/ehco.json" ]; then
 		wget https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco.json -O ehco.json
 	fi
-	JSON='{"listen":"0.0.0.0:local_port","listen_type":"raw","transport_type":"mwss","tcp_remotes":["wss://ip:landing_port"],"udp_remotes":["ip:443"]}'
+	JSON='{"listen":"0.0.0.0:local_port","listen_type":"raw","transport_type":"mwss","tcp_remotes":["wss://ip:landing_port"],"udp_remotes":["ip:landing_port"]}'
 	JSON=${JSON/local_port/$local_port};
+	JSON=${JSON/landing_port/$landing_port};
 	JSON=${JSON/landing_port/$landing_port};
 	JSON=${JSON/ip/$ip};
 	JSON=${JSON/ip/$ip};
 	temp=`jq --argjson groupInfo $JSON '.relay_configs += [$groupInfo]' ehco.json`
 	echo $temp > ehco.json
-	if [ ! -d "/usr/lib/systemd/system/ehco.service" ]; then
-		wget https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco-landing.service -O ehco.service
+	if [ ! -f "/usr/lib/systemd/system/ehco.service" ]; then
+		wget https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco-forward.service -O ehco.service
 		mv ehco.service /usr/lib/systemd/system
 	fi
 	echo "正在本机启动Echo隧道"
@@ -156,7 +157,7 @@ forward_config(){
 	echo "Have a nice day:)"
 }
 
-if [ ! -d "/usr/bin/ehco" ]; then
+if [ ! -f "/usr/bin/ehco" ]; then
 	echo -e "现在开始安装Ehco隧道"
 	wget https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco_1.0.7_linux_amd64 -O ehco
 	chmod +x ehco
