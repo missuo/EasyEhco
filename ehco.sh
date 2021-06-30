@@ -140,12 +140,15 @@ forward_config(){
 	JSON=${JSON/ip/$ip};
 	temp=`jq --argjson groupInfo $JSON '.relay_configs += [$groupInfo]' ehco.json`
 	echo $temp > ehco.json
-	wget https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco-landing.service -O ehco.service
-	mv ehco.service /usr/lib/systemd/system
+	if [ ! -d "/usr/lib/systemd/system/ehco.service" ]; then
+		wget https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco-landing.service -O ehco.service
+		mv ehco.service /usr/lib/systemd/system
+	fi
 	echo "正在本机启动Echo隧道"
 	systemctl daemon-reload
 	systemctl start ehco.service
 	systemctl enable ehco.service
+	systemctl restart ehco.service
 	echo ""
 	clear
 	echo "启动成功并已设定为开机自启。Ehco隧道的连接端口为 ${local_port} ！"
