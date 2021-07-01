@@ -183,7 +183,7 @@ ${green}4.${plain} 重新启用
 ${green}5.${plain} 重启隧道
 ${green}0.${plain} 退出脚本
 ————————————————————————————————"
-	read -p " 请输入数字: " num
+	read -p "请输入数字: " num
 	case "$num" in
 	1)
 		landing_config
