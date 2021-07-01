@@ -78,17 +78,17 @@ check_sys(){
 	then
 		yum -y install wget jq
 		sysctl_dir="/usr/lib/systemd/system/"
-		full_sysctl_dir=${sysctl_dir}"echo.service"
+		full_sysctl_dir=${sysctl_dir}"ehco.service"
 	elif [ $release = "Debian" ]
 	then
 		apt-get install wget jq -y
 		sysctl_dir="/etc/systemd/system/"
-		full_sysctl_dir=${sysctl_dir}"echo.service"
+		full_sysctl_dir=${sysctl_dir}"ehco.service"
 	elif [ $release = "Ubuntu" ]
 	then
 		apt-get install wget jq -y
 		sysctl_dir="/lib/systemd/system/"
-		full_sysctl_dir=${sysctl_dir}"echo.service"
+		full_sysctl_dir=${sysctl_dir}"ehco.service"
 	else
 		echo -e "[${red}错误${plain}]不支持当前系统"
 		exit 1
