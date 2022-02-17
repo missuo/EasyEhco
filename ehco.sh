@@ -139,7 +139,7 @@ forward_config(){
 	if [ ! -f "/root/ehco.json" ]; then
 		wget https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco.json -O ehco.json
 	fi
-	JSON='{"listen":"0.0.0.0:local_port","listen_type":"raw","transport_type":"ws","tcp_remotes":["wss://ip:landing_port"],"udp_remotes":["ip:landing_port"]}'
+	JSON='{"listen":"0.0.0.0:local_port","listen_type":"raw","transport_type":"ws","tcp_remotes":["ws://ip:landing_port"],"udp_remotes":["ip:landing_port"]}'
 	JSON=${JSON/local_port/$local_port};
 	JSON=${JSON/landing_port/$landing_port};
 	JSON=${JSON/landing_port/$landing_port};
