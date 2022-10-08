@@ -165,7 +165,7 @@ forward_config(){
 
 if [ ! -f "/usr/bin/ehco" ]; then
 	echo -e "现在开始安装Ehco隧道"
-	wget https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco_1.0.7_linux_amd64 -O ehco
+	https://github.com/Ehco1996/ehco/releases/download/v1.1.1/ehco_1.1.1_linux_amd64 -O ehco
 	chmod +x ehco
 	mv ehco /usr/bin
 fi
