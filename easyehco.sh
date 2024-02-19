@@ -2,7 +2,7 @@
  # @Author: Vincent Young
  # @Date: 2024-02-19 11:06:56
  # @LastEditors: Vincent Young
- # @LastEditTime: 2024-02-19 11:36:52
+ # @LastEditTime: 2024-02-19 11:42:27
  # @FilePath: /EasyEhco/easyehco.sh
  # @Telegram: https://t.me/missuo
  # @GitHub: https://github.com/missuo
@@ -159,7 +159,7 @@ forward_config(){
         wget https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco.json -O /etc/ehco/ehco.json
     fi
     
-    JSON='{"listen":"0.0.0.0:local_port","listen_type":"transport_type","transport_type":"transport_type","tcp_remotes":["transport_type://ip:landing_port"],"udp_remotes":["ip:landing_port"]}'
+    JSON='{"listen":"0.0.0.0:local_port","listen_type":"transport_type","transport_type":"transport_type","tcp_remotes":["transport_type://ip:landing_port"],"udp_remotes":[]}'
     JSON=${JSON/local_port/$local_port}
     JSON=${JSON/transport_type/$transport_type}
     JSON=${JSON/ip/$ip}
