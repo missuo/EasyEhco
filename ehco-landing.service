@@ -1,21 +1,20 @@
 [Unit]
-# 服务描述
-Description=crontab master
-# 在网络初始化之后启动
+# Service Description
+Description=Ehco Tunnel Service
+# Start after the network is ready
 After=network.target
 
 [Service]
-# 服务类型
+# Service Type
 Type=simple
-# 进程退出立即重启
+# Restart immediately if the process exits
 Restart=always
 
-
-# 工作目录
-WoringDirectory=/usr/bin/ehco
-# 启动命令
-ExecStart=/usr/bin/ehco -l 0.0.0.0:443 -lt ws -r 127.0.0.1:1111
+# Working Directory
+WorkingDirectory=/usr/bin/ehco
+# Start command, with placeholders for listen_port, server_port, and forward_mode
+ExecStart=/usr/bin/ehco -l 0.0.0.0:%i -lt %f -r 127.0.0.1:%p
 
 [Install]
-# 当系统以多用户方式启动时，这个服务需要被自动运行
+# Automatically start this service when the system is in multi-user mode
 WantedBy=multi-user.target
