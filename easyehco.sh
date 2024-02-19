@@ -156,7 +156,7 @@ forward_config(){
     esac
     
     if [ ! -f "/etc/ehco/ehco.json" ]; then
-        wget https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco.json -O /etc/ehco/ehco.json
+        wget https://cdn.jsdelivr.net/gh/missuo/EasyEhco/ehco.json -O /etc/ehco/ehco.json
     fi
     
     JSON='{"listen":"0.0.0.0:local_port","listen_type":"transport_type","transport_type":"transport_type","tcp_remotes":["transport_type://ip:landing_port"],"udp_remotes":[]}'
@@ -167,7 +167,7 @@ forward_config(){
     echo $temp > /etc/ehco/ehco.json
     
     if [ ! -f "/etc/systemd/system/ehco.service" ]; then
-        wget https://cdn.jsdelivr.net/gh/missuo/Ehcoo/ehco-forward.service -O ehco.service
+        wget https://cdn.jsdelivr.net/gh/missuo/EasyEhco/ehco-forward.service -O ehco.service
         mv ehco.service /etc/systemd/system/
     fi
     
