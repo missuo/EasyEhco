@@ -11,7 +11,7 @@ Type=simple
 Restart=always
 
 # Working Directory
-WorkingDirectory=/usr/bin/ehco
+WorkingDirectory=/usr/bin
 # Start Command
 ExecStart=/usr/bin/ehco -c /etc/ehco/ehco.json
 
